@@ -36,6 +36,25 @@
                     <br>
                     {% endif %}
                     <br>
+                    <div class="row">
+                        <div class=" col-md-4">Quantity:</div>
+                        <div class="col-md-3">
+                            <select class="form-select form-select-sm" id="{{ 'product_id' }}">
+                                <option selected>
+                                    {% for key, value in quantities.items %}
+                                    {% if key == product.id|slugify %}
+                                    {{ value }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
                     <br>
                     <a href="{% url "home" %}" class="btn btn-secondary">Home</a>
                     <button type="button" data class="btn btn-secondary update-cart">Update</button>
@@ -46,6 +65,8 @@
     </div>
     <br>
     {% endfor %}
+    <h3>Total: ₹{{ totals }}</h3>
+    <br><br><br>
     {% else %}
     There is nothing in your cart...
     {% endif %}
