@@ -38,6 +38,7 @@
                     <br>
                     <br>
                     <a href="{% url "home" %}" class="btn btn-secondary">Home</a>
+                    <button type="button" data class="btn btn-danger delete-product">Remove</button>
                 </div>
             </div>
         </div>
@@ -48,4 +49,26 @@
     There is nothing in your cart...
     {% endif %}
 </div>
+<script>
+    $(document).on('click', '.delete-product', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart_delete" %}',
+            data: {
+                product_id: $(this).data('index'),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json) {
+                // console.log(json);
+                //document.getElementById("cart_Quantity").textContent = json.qty
+                location.reload()
+            },
+            error: function(xhr, errmsg, err) {
+            }
+        });
+    });
+    
+</script>
 {% endblock %}

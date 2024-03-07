@@ -30,11 +30,17 @@ class Cart():
         quantities = self.cart
         return quantities
     
-    '''def update(self, product, quantity):
+    def update(self, product, quantity):
         product_id = str(product)
         product_qty = int(quantity)
         ourcart = self.cart
         ourcart[product_id] = product_qty
         self.session.modified = True
         thing = self.cart
-        return thing'''
+        return thing
+        
+    def delete(self, product):
+        product_id = str(product)
+        if product_id in self.cart:
+            del self.cart[product_id]
+        self.session.modified = True
