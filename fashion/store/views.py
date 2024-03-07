@@ -7,6 +7,10 @@ from .forms import SignUpForm
 from django import forms
 from .models import Product,Category
 
+def category_summary(reguest):
+    categories = Category.objects.all()
+    return render(reguest, 'category_summary.html', {"categories": categories})
+
 
 def category(request, foo):
     # Retrieve the category based on the slug
