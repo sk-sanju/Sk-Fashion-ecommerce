@@ -38,6 +38,7 @@
                     <br>
                     <br>
                     <a href="{% url "home" %}" class="btn btn-secondary">Home</a>
+                    <button type="button" data class="btn btn-secondary update-cart">Update</button>
                     <button type="button" data class="btn btn-danger delete-product">Remove</button>
                 </div>
             </div>
@@ -50,6 +51,27 @@
     {% endif %}
 </div>
 <script>
+    $(document).on('click', '.update-cart', function(e) {
+        e.preventDefault();
+        var productid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart_update" %}',
+            data: {
+                product_id: $(this).data('index'),
+                product_qty: $('#select'+ productid + 'option:selected').text(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json) {
+                // console.log(json);
+                //document.getElementById("cart_Quantity").textContent = json.qty
+                location.reload()
+            },
+            error: function(xhr, errmsg, err) {
+            }
+        });
+    });
     $(document).on('click', '.delete-product', function(e) {
         e.preventDefault();
         $.ajax({

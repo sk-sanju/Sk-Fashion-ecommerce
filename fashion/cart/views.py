@@ -42,4 +42,3 @@ def cart_update(request):
         cart.update(product=product_id, quantity=product_qty)
         response = JsonResponse({'qty':product_qty})
         return response
-        #return redirect('cart_summery')
